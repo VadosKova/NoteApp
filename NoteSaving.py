@@ -23,7 +23,9 @@ class NoteSaving:
             with open(self.file, 'r') as file:
                 content = file.read().strip().split("\n")
                 for note_data in content:
-                    note_lines = note_data.split(";")
+                    note_data = note_data.strip().strip(";")
+                    note_lines = [line.split(":")[1].strip() for line in note_data.split(",")]
+
                     if len(note_lines) == 3:
                         id, title, content = note_lines
                         notes.append(Note(id, title, content))
