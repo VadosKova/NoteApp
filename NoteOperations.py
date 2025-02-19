@@ -27,3 +27,16 @@ class NoteOperations:
         else:
             print("Error")
 
+    def show_note_by_id(self):
+        note_id = input("Enter the note ID: ")
+        note_found = None
+
+        for note in self.notes:
+            if note.get_id() == note_id:
+                note_found = note
+                break
+
+        if note_found:
+            print("\nResult:\n", note_found)
+        else:
+            print("Error")
