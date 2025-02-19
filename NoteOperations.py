@@ -26,3 +26,4 @@ class NoteOperations:
             print("Note was deleted")
         else:
             print("Error")
+
