@@ -11,5 +11,18 @@ class NoteOperations:
 
         note = Note(id, title, content)
         self.notes.append(note)
-        print(f"Note with ID '{id}' added")
+        print(f"Note was added")
 
+
+    def delete_note_by_id(self, id):
+        note_to_delete = None
+        for note in self.notes:
+            if note.get_id() == id:
+                note_to_delete = note
+                break
+
+        if note_to_delete:
+            self.notes.remove(note_to_delete)
+            print("Note was deleted")
+        else:
+            print("Error")
