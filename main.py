@@ -1,5 +1,4 @@
 from NoteOperations import NoteOperations
-from NoteSaving import NoteSaving
 
 operations = NoteOperations()
 
