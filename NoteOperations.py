@@ -1,8 +1,10 @@
 from Notes import Note
+from NoteSaving import NoteSaving
 
 class NoteOperations:
     def __init__(self):
         self.notes = []
+        self.file_operations = NoteSaving()
 
     def add_note(self, id, title, content):
         if any(note.get_id() == id for note in self.notes):
@@ -40,3 +42,14 @@ class NoteOperations:
             print("\nResult:\n", note_found)
         else:
             print("Error")
+
+    def save_notes(self):
+        self.file_operations.save_notes_to_file(self.notes)
+
+    def load_notes(self):
+        self.notes = self.file_operations.load_notes_from_file()
+        if not self.notes:
+            print("No notes")
+        else:
+            for note in self.notes:
+                print(note)

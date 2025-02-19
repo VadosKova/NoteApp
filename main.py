@@ -7,7 +7,8 @@ while True:
     print("1. Add note")
     print("2. Delete note")
     print("3. Show note by ID")
-    print("4. Exit")
+    print("4. Show all notes")
+    print("5. Exit")
 
     choice = input("Choose an option: ")
 
@@ -16,6 +17,7 @@ while True:
         title = input("Enter title: ")
         content = input("Enter content: ")
         operations.add_note(id, title, content)
+        operations.save_notes()
 
     elif choice == "2":
         id = input("Enter the ID to delete note: ")
@@ -25,6 +27,9 @@ while True:
         operations.show_note_by_id()
 
     elif choice == "4":
+        operations.load_notes()
+
+    elif choice == "5":
         print("End")
         break
 
