@@ -39,7 +39,7 @@ class NoteOperations:
     def show_note_by_id(self):
         note_id = input("Enter the note ID: ")
 
-        self.cursor.execute("SELECT ID, Title, Content FROM Notes WHERE ID = ?", (note_id,))
+        self.cursor.execute("SELECT * FROM Notes WHERE ID = ?", (note_id,))
         row = self.cursor.fetchone()
 
         if row:
