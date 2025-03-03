@@ -12,7 +12,7 @@ class NoteOperations:
 
     def add_note(self, id, title, content):
         self.cursor.execute("SELECT 1 FROM Notes WHERE ID = ?", (id,))
-        result = self.cursor.fetchone()[0]
+        result = self.cursor.fetchone()
 
         if result:
             print("Заметка с таким ID уже есть")
