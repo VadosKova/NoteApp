@@ -11,7 +11,7 @@ class NoteOperations:
         self.cursor = self.conn.cursor()
 
     def add_note(self, id, title, content):
-        self.cursor.execute("SELECT COUNT(1) FROM Notes WHERE ID = ?", (id,))
+        self.cursor.execute("SELECT 1 FROM Notes WHERE ID = ?", (id,))
         result = self.cursor.fetchone()[0]
 
         if result > 0:
@@ -38,15 +38,13 @@ class NoteOperations:
 
     def show_note_by_id(self):
         note_id = input("Enter the note ID: ")
-        note_found = None
 
-        for note in self.notes:
-            if note.get_id() == note_id:
-                note_found = note
-                break
+        self.cursor.execute("SELECT ID, Title, Content FROM Notes WHERE ID = ?", (note_id,))
+        row = self.cursor.fetchone()
 
-        if note_found:
-            print("\nResult:\n", note_found)
+        if row:
+            note = Note(row[0], row[1], row[2])
+            print(f"\nResult:\n{note}")
         else:
             print("Error")
 
