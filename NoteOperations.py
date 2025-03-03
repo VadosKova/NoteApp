@@ -1,3 +1,4 @@
+import pyodbc
 from Notes import Note
 from NoteSaving import NoteSaving
 
@@ -5,15 +6,21 @@ class NoteOperations:
     def __init__(self):
         self.notes = []
         self.file_operations = NoteSaving()
+        self.connection_string = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=Lesson;Trusted_Connection=yes'
+        self.conn = pyodbc.connect(self.connection_string)
+        self.cursor = self.conn.cursor()
 
     def add_note(self, id, title, content):
-        if any(note.get_id() == id for note in self.notes):
-            print("Заметка с таким ID уже есть")
+        self.cursor.execute("SELECT COUNT(1) FROM Notes WHERE ID = ?", (id,))
+        result = self.cursor.fetchone()[0]
+
+        if result > 0:
+            print("Заметка с таким ID уже есть в базе данных")
             return
 
-        note = Note(id, title, content)
-        self.notes.append(note)
-        print(f"Note was added")
+        self.cursor.execute("INSERT INTO Notes (ID, Title, Content) VALUES (?, ?, ?)", (id, title, content))
+        self.conn.commit()
+        print("Note was added to the database")
 
 
     def delete_note_by_id(self, id):
