@@ -52,9 +52,12 @@ class NoteOperations:
         self.file_operations.save_notes_to_file(self.notes)
 
     def load_notes(self):
-        self.notes = self.file_operations.load_notes_from_file()
-        if not self.notes:
-            print("No notes")
+        self.cursor.execute("SELECT * FROM Notes")
+        rows = self.cursor.fetchall()
+
+        if not rows:
+            print("Error")
         else:
-            for note in self.notes:
+            for row in rows:
+                note = Note(row[0], row[1], row[2])
                 print(note)
