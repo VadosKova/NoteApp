@@ -14,13 +14,13 @@ class NoteOperations:
         self.cursor.execute("SELECT 1 FROM Notes WHERE ID = ?", (id,))
         result = self.cursor.fetchone()[0]
 
-        if result > 0:
-            print("Заметка с таким ID уже есть в базе данных")
+        if result:
+            print("Заметка с таким ID уже есть")
             return
 
         self.cursor.execute("INSERT INTO Notes (ID, Title, Content) VALUES (?, ?, ?)", (id, title, content))
         self.conn.commit()
-        print("Note was added to the database")
+        print("Note was added to database")
 
 
     def delete_note_by_id(self, id):
